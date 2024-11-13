@@ -96,9 +96,9 @@ def run_pdbs(df, outdir, csv_f):
 
             for i_lig, val in lig_iter:
                 if use_q:
-                    lig_sel = f"organic and not solvent and q={val} and resn {resn}"
+                    lig_sel = f"ligs and q={val} and resn {resn}"
                 else:
-                    lig_sel = f"organic and not solvent and segi {val} and resn {resn}"
+                    lig_sel = f"ligs and segi {val} and resn {resn}"
 
                 lig_obj = f"lig{resn}-{i_lig}" 
                 cmd.create(lig_obj, lig_sel) 
@@ -126,7 +126,7 @@ def run_pdbs(df, outdir, csv_f):
                 closest_chain = "A" if dist_A < dist_B else "B"
             else:
                 closest_chain = "A"
-            cmd.create("monomer", f"polymer.protein and not solvent and not organic and chain {closest_chain}")
+            cmd.create("monomer", f"monomers and chain {closest_chain}")
             monomer_f = f"{outdir}/{p}-monomer.pdb"
             cmd.save(monomer_f, "monomer")
 
